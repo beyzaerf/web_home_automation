@@ -1,0 +1,95 @@
+/* Global Styles */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+}
+
+header, nav, main {
+	margin: 0 auto;
+	max-width: 960px;
+	padding: 20px;
+}
+
+nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+nav li {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+nav li:last-of-type {
+	margin-right: 0;
+}
+
+button {
+	background-color: #0066cc;
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	font-size: 18px;
+	padding: 10px;
+	transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+	background-color: #0052a4;
+}
+
+/* Home Page Specific Styles */
+header h1 {
+	font-size: 36px;
+	margin-bottom: 20px;
+}
+
+main p {
+	font-size: 24px;
+	line-height: 1.5;
+	margin-bottom: 40px;
+}
+
+/* Sensor Data Display Page Specific Styles */
+#sensor-data {
+	font-size: 24px;
+	line-height: 1.5;
+	padding: 20px;
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Device Control Page Specific Styles */
+form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+label {
+	margin-right: 10px;
+}
+
+select, input[type="text"], button[type="submit"] {
+	font-size: 18px;
+	padding: 10px;
+	border-radius: 5px;
+	border: none;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+button[type="submit"] {
+	background-color: #0066cc;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+	background-color: #0052a4;
+}

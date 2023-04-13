@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sensor Data Generation Page</title>
+    <link rel="stylesheet" type="text/css" href="producer_data_generator.css">
+  </head>
+  <body>
+    <h1>Sensor Data Generation Page</h1>
+    <form>
+      <div class="device-wrapper">
+        <div class="device">
+          <h2>Device 1</h2>
+          <label for="device1-frequency">Frequency:</label>
+          <input type="number" id="device1-frequency" name="device1-frequency" min="1" max="100" value="10"><br><br>
+          <label for="device1-min-value">Min Value:</label>
+          <input type="number" id="device1-min-value" name="device1-min-value" min="-100" max="0" value="-50"><br><br>
+          <label for="device1-max-value">Max Value:</label>
+          <input type="number" id="device1-max-value" name="device1-max-value" min="0" max="100" value="50"><br><br>
+        </div>
+
+        <div class="device">
+          <h2>Device 2</h2>
+          <label for="device2-frequency">Frequency:</label>
+          <input type="number" id="device2-frequency" name="device2-frequency" min="1" max="100" value="5"><br><br>
+          <label for="device2-min-value">Min Value:</label>
+          <input type="number" id="device2-min-value" name="device2-min-value" min="-100" max="0" value="-80"><br><br>
+          <label for="device2-max-value">Max Value:</label>
+          <input type="number" id="device2-max-value" name="device2-max-value" min="0" max="100" value="80"><br><br>
+        </div>
+
+        <div class="device">
+          <h2>Device 3</h2>
+          <label for="device3-frequency">Frequency:</label>
+          <input type="number" id="device3-frequency" name="device3-frequency" min="1" max="100" value="20"><br><br>
+          <label for="device3-min-value">Min Value:</label>
+          <input type="number" id="device3-min-value" name="device3-min-value" min="-100" max="0" value="-30"><br><br>
+          <label for="device3-max-value">Max Value:</label>
+          <input type="number" id="device3-max-value" name="device3-max-value" min="0" max="100" value="30"><br><br>
+        </div>
+
+        <div class="device">
+          <h2>Device 4</h2>
+          <label for="device4-frequency">Frequency:</label>
+          <input type="number" id="device4-frequency" name="device4-frequency" min="1" max="100" value="15"><br><br>
+          <label for="device4-min-value">Min Value:</label>
+          <input type="number" id="device4-min-value" name="device4-min-value" min="-100" max="0" value="-70"><br><br>
+          <label for="device4-max-value">Max Value:</label>
+          <input type="number" id="device4-max-value" name="device4-max-value" min="0" max="100" value="70"><br><br>
+        </div>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
