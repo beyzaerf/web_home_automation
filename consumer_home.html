@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Automation Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="home_style.css">
+</head>
+<body>
+	<h1>Home Automation Dashboard</h1>
+	<div class="container">
+		<div class="card">
+			<h2>Air Conditioner</h2>
+			<div class="device-status">
+				<span>Status:</span>
+				<span id="ac-status">On</span>
+			</div>
+			<div class="device-buttons">
+				<button id="ac-on-btn">On</button>
+				<button id="ac-off-btn">Off</button>
+			</div>
+		</div>
+		<div class="card">
+			<h2>Lights</h2>
+			<div class="device-status">
+				<span>Status:</span>
+				<span id="lights-status">Off</span>
+			</div>
+			<div class="device-buttons">
+				<button id="lights-on-btn">On</button>
+				<button id="lights-off-btn">Off</button>
+			</div>
+		</div>
+		<div class="card">
+			<h2>Robot Vacuum Cleaner</h2>
+			<div class="device-status">
+				<span>Status:</span>
+				<span id="vacuum-status">Off</span>
+			</div>
+			<div class="device-buttons">
+				<button id="vacuum-on-btn">On</button>
+				<button id="vacuum-off-btn">Off</button>
+			</div>
+		</div>
+		<div class="card">
+			<h2>Air Purifier</h2>
+			<div class="device-status">
+				<span>Status:</span>
+				<span id="purifier-status">Off</span>
+			</div>
+			<div class="device-buttons">
+				<button id="purifier-on-btn">On</button>
+				<button id="purifier-off-btn">Off</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Air Conditioner buttons
+		document.getElementById("ac-on-btn").addEventListener("click", function(){
+			document.getElementById("ac-status").innerHTML = "On";
+		});
+		document.getElementById("ac-off-btn").addEventListener("click", function(){
+			document.getElementById("ac-status").innerHTML = "Off";
+		});
+
+		// Lights buttons
+		document.getElementById("lights-on-btn").addEventListener("click", function(){
+			document.getElementById("lights-status").innerHTML = "On";
+		});
+		document.getElementById("lights-off-btn").addEventListener("click", function(){
+			document.getElementById("lights-status").innerHTML = "Off";
+		});
+
+		// Robot Vacuum Cleaner buttons
+		document.getElementById("vacuum-on-btn").addEventListener("click", function(){
+			document.getElementById("vacuum-status").innerHTML = "On";
+		});
+		document.getElementById("vacuum-off-btn").addEventListener("click", function(){
+			document.getElementById("vacuum-status").innerHTML = "Off";
+		});
+
+		// Air Purifier buttons
+		document.getElementById("purifier-on-btn").addEventListener("click", function(){
+			document.getElementById("purifier-status").innerHTML = "On";
+		});
+		document.getElementById("purifier-off-btn").addEventListener("click", function(){
+			document.getElementById("purifier-status").innerHTML = "Off";
+		});
+	</script>
+</body>
+</html>
+
