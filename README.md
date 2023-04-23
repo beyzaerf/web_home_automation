@@ -7,7 +7,12 @@
 
 # REPORT - Workflow Chart
 
-![untitled_page](https://user-images.githubusercontent.com/80067909/232600551-8fff7bf6-65e5-47ae-bc2e-782583048786.png)
+![untitled_page](https://user-images.githubusercontent.com/80067909/233857937-35f68bc6-70f0-4b92-93ff-edaeaf2d7b87.png)
+
+Our landing page is titled index.html. The rest can be navigated through the web pages, such as clicking login. 
+Login credentials are written in the login page. Here they are again:
+username: p password: 123 for producer
+username: c password 123 for consumer
 
 Our home automation web application will have two sides, the consumer and producer. In this report, we will explain the workflow of both sides separately. When a user enters our application, they will be met with the landing page where they can choose to login as a producer or a consumer. 
 
