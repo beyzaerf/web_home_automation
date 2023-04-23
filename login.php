@@ -4,8 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"];
   $password = $_POST["password"];
 
-  //use asd for username and password for consumer login.
-  if ($username === "asd" && $password === "asd") {
+  if ($username === "c" && $password === "123") {
     header("Location: consumer_home.html");
     exit();
   } else {
@@ -13,4 +12,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
-

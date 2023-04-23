@@ -20,22 +20,29 @@
                     </svg></span><span>AutoHome</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="rooms.html">Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link" href="devices.html">Devices</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-                </ul><a class="btn btn-primary ms-md-2" role="button" href="login.html">Logout</a>
+                </ul><a class="btn btn-primary ms-md-2" role="button" href="login.html">Login</a>
             </div>
         </div>
     </nav>
-    <section data-aos="fade" data-aos-duration="2000" class="py-4 py-xl-5">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
-                    <div>
-                        <h2 class="text-uppercase fw-bold mb-3">Welcome to your Smart Home System dashboard!</h2>
-                        <p class="mb-4">Easily control all of your smart devices and organize them by room. Click the Rooms button to view all the rooms in your home and the smart devices associated with each. Or, click the Devices button to toggle individual devices on and off and monitor their power usage. Simplify your smart home experience with our intuitive interface and advanced technology. Start exploring now!</p>
-                        <button class="btn btn-primary fs-5 me-2 py-2 px-4" type="button" onclick="location.href='rooms.html'">Rooms</button>
-                        <button class="btn btn-outline-primary fs-5 py-2 px-4" type="button" onclick="location.href='devices.html'">Devices</button>
+    <section class="py-4 py-xl-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto" data-aos="fade" data-aos-duration="3000">
+                    <h2>Login</h2>
+                    <p>Welcome to the login page for our Smart Home System! To access your personalized dashboard and control your smart devices, please enter your login credentials below.</p>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-xl-4" data-aos="fade" data-aos-duration="3000">
+                    <div class="card mb-5">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <form class="text-center" method="post">
+                                <div class="mb-3"><input class="form-control" type="text" name="username" placeholder="Consumer: c Producer: p"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password: 123"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
