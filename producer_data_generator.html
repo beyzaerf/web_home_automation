@@ -30,52 +30,130 @@
     <title>Sensor Data Generation Page</title>
     <link rel="stylesheet" type="text/css" href="producer_data_generator.css">
   </head>
-  <body>
-    <h1>Sensor Data Generation Page</h1>
-    <form>
-      <div class="device-wrapper">
-        <div class="device">
-          <h2>Air Conditioner</h2>
-          <label for="device1-frequency">Temperature:</label>
-          <input type="number" id="device1-frequency" name="device1-frequency" min="1" max="100" value="20"><br><br>
-          <label for="device1-min-value">Min Value:</label>
-          <input type="number" id="device1-min-value" name="device1-min-value" min="1" max="18" value="0"><br><br>
-          <label for="device1-max-value">Max Value:</label>
-          <input type="number" id="device1-max-value" name="device1-max-value" min="18" max="30" value="24"><br><br>
-        </div>
-
-        <div class="device">
-          <h2>Lights</h2>
-          <label for="device2-frequency">Frequency:</label>
-          <input type="number" id="device2-frequency" name="device2-frequency" min="1" max="100" value="5"><br><br>
-          <label for="device2-min-value">Min Value:</label>
-          <input type="number" id="device2-min-value" name="device2-min-value" min="-100" max="0" value="-80"><br><br>
-          <label for="device2-max-value">Max Value:</label>
-          <input type="number" id="device2-max-value" name="device2-max-value" min="0" max="100" value="80"><br><br>
-        </div>
-
-        <div class="device">
-          <h2>Robot Vacuum Cleaner</h2>
-          <label for="device3-frequency">Frequency:</label>
-          <input type="number" id="device3-frequency" name="device3-frequency" min="1" max="100" value="20"><br><br>
-          <label for="device3-min-value">Min Value:</label>
-          <input type="number" id="device3-min-value" name="device3-min-value" min="-100" max="0" value="-30"><br><br>
-          <label for="device3-max-value">Max Value:</label>
-          <input type="number" id="device3-max-value" name="device3-max-value" min="0" max="100" value="30"><br><br>
-        </div>
-
-        <div class="device">
-          <h2>Air Purifier</h2>
-          <label for="device4-frequency">Frequency:</label>
-          <input type="number" id="device4-frequency" name="device4-frequency" min="1" max="100" value="15"><br><br>
-          <label for="device4-min-value">Min Value:</label>
-          <input type="number" id="device4-min-value" name="device4-min-value" min="-100" max="0" value="-70"><br><br>
-          <label for="device4-max-value">Max Value:</label>
-          <input type="number" id="device4-max-value" name="device4-max-value" min="0" max="100" value="70"><br><br>
-        </div>
+</head>
+<body>
+  <h1>Sensor Data Generation Page</h1>
+  <form>
+    <div class="device-wrapper">
+      <div class="device">
+        <h2>Air Conditioner</h2>
+        <label for="device1-temperature">Temperature:</label>
+        <input type="number" id="device1-temperature" name="device1-temperature" min="16" max="30" value="22"><br><br>
+        <label for="device1-mode">Mode:</label>
+        <select id="device1-mode" name="device1-mode">
+          <option value="cooling">Cooling</option>
+          <option value="heating">Heating</option>
+          <option value="fan">Fan</option>
+        </select><br><br>
+        <label for="device1-fan-speed">Fan Speed:</label>
+        <select id="device1-fan-speed" name="device1-fan-speed">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select><br><br>
       </div>
 
-      <button type="submit">Submit</button>
-    </form>
-  </body>
+      <div class="device">
+        <h2>Lights</h2>
+        <label for="device2-intensity">Intensity:</label>
+        <input type="number" id="device2-intensity" name="device2-intensity" min="0" max="100" value="50"><br><br>
+        <label for="device2-color">Color:</label>
+        <input type="color" id="device2-color" name="device2-color" value="#ffffff"><br><br>
+        <label for="device2-state">State:</label>
+        <select id="device2-state" name="device2-state">
+          <option value="on">On</option>
+          <option value="off">Off</option>
+        </select><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Robot Vacuum Cleaner</h2>
+        <label for="device3-mode">Mode:</label>
+        <select id="device3-mode" name="device3-mode">
+          <option value="vacuuming">Vacuuming</option>
+          <option value="mopping">Mopping</option>
+          <option value="charging">Charging</option>
+        </select><br><br>
+        <label for="device3-intensity">Cleaning Intensity:</label>
+        <input type="number" id="device3-intensity" name="device3-intensity" min="1" max="10" value="5"><br><br>
+        <label for="device3-battery">Battery Percentage:</label>
+        <input type="number" id="device3-battery" name="device3-battery" min="0" max="100" value="80"><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Air Purifier</h2>
+        <label for="device4-mode">Mode:</label>
+        <select id="device4-mode" name="device4-mode">
+          <option value="auto">Auto</option>
+          <option value="manual">Manual</option>
+        </select><br><br>
+        <label for="device4-filtration">Filtration Level:</label>
+        <input type="number" id="device4-filtration" name="device4-filtration" min="1" max="5" value="3"><br><br>
+        <label for="device4-ionizer">Ionizer:</label>
+        <select id="device4-ionizer" name="device4-ionizer">
+          <option value="on">On</option>
+          <option value="off">Off</option>
+        </select><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Window Sensor</h2>
+        <label for="device5-status">Status:</label>
+        <select id="device5-status" name="device5-status">
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Security Alarm</h2>
+        <label for="device6-status">Status:</label>
+        <select id="device6-status" name="device6-status">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select><br><br>
+        <label for="device6-volume">Volume:</label>
+        <input type="range" id="device6-volume" name="device6-volume" min="0" max="100" value="50"><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Door Sensor</h2>
+        <label for="device7-status">Status:</label>
+        <select id="device7-status" name="device7-status">
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Motion Sensor</h2>
+        <label for="device8-motion">Motion Detected:</label>
+        <select id="device8-motion" name="device8-motion">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select><br><br>
+      </div>
+
+      <div class="device">
+        <h2>Thermostat</h2>
+        <label for="device9-temperature">Temperature:</label>
+        <input type="number" id="device9-temperature" name="device9-temperature" min="16" max="30" value="22"><br><br>
+        <label for="device9-mode">Mode:</label>
+        <select id="device9-mode" name="device9-mode">
+          <option value="cooling">Cooling</option>
+          <option value="heating">Heating</option>
+          <option value="off">Off</option>
+        </select><br><br>
+        <label for="device9-fan-speed">Fan Speed:</label>
+        <select id="device9-fan-speed" name="device9-fan-speed">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select><br><br>
+      </div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
 </html>
