@@ -1,7 +1,18 @@
 <?php
+$serverName = "localhost"; 
+$connectionOptions = array(
+    "Database" => "autohome", 
+    "Uid" => "root@localhost", 
+    "PWD" => "password" 
+);
 
-// burada database connection yapılacak
-// .php dosyası submit butonuna bağlanacak
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+    echo "Connected to the database!";
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
