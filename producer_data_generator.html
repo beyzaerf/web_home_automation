@@ -33,7 +33,7 @@
 </head>
 <body>
   <h1>Sensor Data Generation Page</h1>
-  <form>
+  <form action="generate.php" method="POST">
     <div class="device-wrapper">
       <div class="device">
         <h2>Air Conditioner</h2>
@@ -51,6 +51,16 @@
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select><br><br>
+        <label for="device1-room">Room:</label>
+        <select id="device1-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device1-energy-usage">Energy Usage:</label>
+        <input type="number" id="device1-energy-usage" name="device1-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device1-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
@@ -64,6 +74,16 @@
           <option value="on">On</option>
           <option value="off">Off</option>
         </select><br><br>
+        <label for="device2-room">Room:</label>
+        <select id="device2-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device2-energy-usage">Energy Usage:</label>
+        <input type="number" id="device2-energy-usage" name="device2-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device2-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
@@ -78,6 +98,16 @@
         <input type="number" id="device3-intensity" name="device3-intensity" min="1" max="10" value="5"><br><br>
         <label for="device3-battery">Battery Percentage:</label>
         <input type="number" id="device3-battery" name="device3-battery" min="0" max="100" value="80"><br><br>
+        <label for="device3-room">Room:</label>
+        <select id="device3-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device3-energy-usage">Energy Usage:</label>
+        <input type="number" id="device3-energy-usage" name="device3-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device3-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
@@ -94,6 +124,16 @@
           <option value="on">On</option>
           <option value="off">Off</option>
         </select><br><br>
+        <label for="device4-room">Room:</label>
+        <select id="device4-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device4-energy-usage">Energy Usage:</label>
+        <input type="number" id="device4-energy-usage" name="device4-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device4-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
@@ -103,6 +143,16 @@
           <option value="open">Open</option>
           <option value="closed">Closed</option>
         </select><br><br>
+        <label for="device5-room">Room:</label>
+        <select id="device5-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device5-energy-usage">Energy Usage:</label>
+        <input type="number" id="device5-energy-usage" name="device5-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device5-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
@@ -114,15 +164,35 @@
         </select><br><br>
         <label for="device6-volume">Volume:</label>
         <input type="range" id="device6-volume" name="device6-volume" min="0" max="100" value="50"><br><br>
+        <label for="device6-room">Room:</label>
+        <select id="device6-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device6-energy-usage">Energy Usage:</label>
+        <input type="number" id="device6-energy-usage" name="device6-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device6-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
-        <h2>Door Sensor</h2>
+        <h2>Smart Lock</h2>
         <label for="device7-status">Status:</label>
         <select id="device7-status" name="device7-status">
           <option value="open">Open</option>
           <option value="closed">Closed</option>
         </select><br><br>
+        <label for="device7-room">Room:</label>
+        <select id="device7-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device7-energy-usage">Energy Usage:</label>
+        <input type="number" id="device7-energy-usage" name="device7-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device7-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
 
       <div class="device">
@@ -132,30 +202,17 @@
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select><br><br>
+        <label for="device8-room">Room:</label>
+        <select id="device8-room" name="device1-room">
+          <option value="living-room">Living Room</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+        </select>
+        <label for="device2-energy-usage">Energy Usage:</label>
+        <input type="number" id="device8-energy-usage" name="device8-energy-usage" min="0" max="100" value="0"><br><br>
+        <input type="hidden" name="device1-submit" value="true">
+        <button type="submit" class="device-submit">Submit</button>
       </div>
-
-      <div class="device">
-        <h2>Thermostat</h2>
-        <label for="device9-temperature">Temperature:</label>
-        <input type="number" id="device9-temperature" name="device9-temperature" min="16" max="30" value="22"><br><br>
-        <label for="device9-mode">Mode:</label>
-        <select id="device9-mode" name="device9-mode">
-          <option value="cooling">Cooling</option>
-          <option value="heating">Heating</option>
-          <option value="off">Off</option>
-        </select><br><br>
-        <label for="device9-fan-speed">Fan Speed:</label>
-        <select id="device9-fan-speed" name="device9-fan-speed">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select><br><br>
-      </div>
-    </div>
-
-    <form action="generate.php" method="POST">
-      <button type="submit">Submit</button>
-    </form>
   </form>
 </body>
 </html>

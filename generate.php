@@ -1,96 +1,154 @@
 <?php
-$serverName = "localhost"; 
-$connectionOptions = array(
-    "Database" => "autohome", 
-    "Uid" => "root@localhost", 
-    "PWD" => "password" 
-);
+// Retrieve the form data for Air Conditioner
+$device1Temperature = $_POST['device1-temperature'];
+$device1Mode = $_POST['device1-mode'];
+$device1FanSpeed = $_POST['device1-fan-speed'];
+$device1Room = $_POST['device1-room'];
+$device1EnergyUsage = $_POST['device1-energy-usage'];
 
-$conn = sqlsrv_connect($serverName, $connectionOptions);
+// Retrieve the form data for Lights
+$device2Intensity = $_POST['device2-intensity'];
+$device2Color = $_POST['device2-color'];
+$device2State = $_POST['device2-state'];
+$device2Room = $_POST['device2-room'];
+$device2EnergyUsage = $_POST['device2-energy-usage'];
 
-if ($conn === false) {
-    die(print_r(sqlsrv_errors(), true));
+// Retrieve the form data for Robot Vacuum Cleaner
+$device3Mode = $_POST['device3-mode'];
+$device3Intensity = $_POST['device3-intensity'];
+$device3Battery = $_POST['device3-battery'];
+$device3Room = $_POST['device3-room'];
+$device3EnergyUsage = $_POST['device3-energy-usage'];
+
+// Retrieve the form data for Air Purifier
+$device4Mode = $_POST['device4-mode'];
+$device4Filtration = $_POST['device4-filtration'];
+$device4Ionizer = $_POST['device4-ionizer'];
+$device4Room = $_POST['device4-room'];
+$device4EnergyUsage = $_POST['device4-energy-usage'];
+
+// Retrieve the form data for Window Sensor
+$device5Status = $_POST['device5-status'];
+$device5Room = $_POST['device5-room'];
+$device5EnergyUsage = $_POST['device5-energy-usage'];
+
+// Retrieve the form data for Security Alarm
+$device6Status = $_POST['device6-status'];
+$device6Volume = $_POST['device6-volume'];
+$device6Room = $_POST['device6-room'];
+$device6EnergyUsage = $_POST['device6-energy-usage'];
+
+// Retrieve the form data for Door Sensor
+$device7Status = $_POST['device7-status'];
+$device7Room = $_POST['device7-room'];
+$device7EnergyUsage = $_POST['device7-energy-usage'];
+
+// Retrieve the form data for Motion Sensor
+$device8Motion = $_POST['device8-motion'];
+$device8Room = $_POST['device8-room'];
+$device8EnergyUsage = $_POST['device8-energy-usage'];
+
+
+// Database connection configuration
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "autohome";
+
+// Create a new connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Insert data into the Air Conditioner table
+$sql1 = "INSERT INTO air_conditioner (temperature, mode, fan_speed, room, energy_usage)
+         VALUES ('$device1Temperature', '$device1Mode', '$device1FanSpeed', '$device1Room', '$device1EnergyUsage')";
+
+if ($conn->query($sql1) === TRUE) {
+    echo "Data inserted successfully for Air Conditioner.<br>";
 } else {
-    echo "Connected to the database!";
+    echo "Error inserting data for Air Conditioner: " . $conn->error . "<br>";
 }
 
+// Insert data into the Lights table
+$sql2 = "INSERT INTO lights (intensity, color, state, room, energy_usage)
+         VALUES ('$device2Intensity', '$device2Color', '$device2State', '$device2Room', '$device2EnergyUsage')";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    function sanitizeInput($input) {
-    $input = trim($input);
-    $input = stripslashes($input);
-    $input = htmlspecialchars($input);
-    return $input;
-  }
-
-  $device1_temperature = sanitizeInput($_POST['device1-temperature']);
-  $device1_mode = sanitizeInput($_POST['device1-mode']);
-  $device1_fan_speed = sanitizeInput($_POST['device1-fan-speed']);
-
-  $device2_intensity = sanitizeInput($_POST['device2-intensity']);
-  $device2_color = sanitizeInput($_POST['device2-color']);
-  $device2_state = sanitizeInput($_POST['device2-state']);
-
-  $device3_mode = sanitizeInput($_POST['device3-mode']);
-  $device3_intensity = sanitizeInput($_POST['device3-intensity']);
-  $device3_battery = sanitizeInput($_POST['device3-battery']);
-
-  $device4_mode = sanitizeInput($_POST['device4-mode']);
-  $device4_filtration = sanitizeInput($_POST['device4-filtration']);
-  $device4_ionizer = sanitizeInput($_POST['device4-ionizer']);
-
-  $device5_status = sanitizeInput($_POST['device5-status']);
-
-  $device6_status = sanitizeInput($_POST['device6-status']);
-  $device6_volume = sanitizeInput($_POST['device6-volume']);
-
-  $device7_status = sanitizeInput($_POST['device7-status']);
-
-  $device8_motion = sanitizeInput($_POST['device8-motion']);
-
-  $device9_temperature = sanitizeInput($_POST['device9-temperature']);
-  $device9_mode = sanitizeInput($_POST['device9-mode']);
-  $device9_fan_speed = sanitizeInput($_POST['device9-fan-speed']);
-
-  $sql = "INSERT INTO device_parameters (device_name, temperature, mode, fan_speed)
-          VALUES ('Air Conditioner', $device1_temperature, '$device1_mode', '$device1_fan_speed')";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, intensity, color, state)
-          VALUES ('Lights', $device2_intensity, '$device2_color', '$device2_state')";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, mode, intensity, battery)
-          VALUES ('Robot Vacuum Cleaner', '$device3_mode', $device3_intensity, $device3_battery)";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, mode, filtration_level, ionizer)
-          VALUES ('Air Purifier', '$device4_mode', $device4_filtration, '$device4_ionizer')";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, status)
-          VALUES ('Window Sensor', '$device5_status')";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, status, volume)
-          VALUES ('Security Alarm', '$device6_status', $device6_volume)";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, status)
-          VALUES ('Door Sensor', '$device7_status')";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, motion_detected)
-          VALUES ('Motion Sensor', '$device8_motion')";
-  mysqli_query($conn, $sql);
-
-  $sql = "INSERT INTO device_parameters (device_name, temperature, mode, fan_speed)
-          VALUES ('Thermostat', $device9_temperature, '$device9_mode', '$device9_fan_speed')";
-  mysqli_query($conn, $sql);
-
-  mysqli_close($conn);
-
-  echo "Data inserted successfully!";
+if ($conn->query($sql2) === TRUE) {
+    echo "Data inserted successfully for Lights.<br>";
+} else {
+    echo "Error inserting data for Lights: " . $conn->error . "<br>";
 }
+
+// Insert data into the Robot Vacuum Cleaner table
+$sql3 = "INSERT INTO robot_vacuum_cleaner (mode, intensity, battery, room, energy_usage)
+         VALUES ('$device3Mode', '$device3Intensity', '$device3Battery', '$device3Room', '$device3EnergyUsage')";
+
+if ($conn->query($sql3) === TRUE) {
+    echo "Data inserted successfully for Robot Vacuum Cleaner.<br>";
+} else {
+    echo "Error inserting data for Robot Vacuum Cleaner: " . $conn->error . "<br>";
+}
+
+// Insert data into the Air Purifier table
+$sql4 = "INSERT INTO air_purifier (mode, filtration_level, ionizer, room, energy_usage)
+         VALUES ('$device4Mode', '$device4Filtration', '$device4Ionizer', '$device4Room', '$device4EnergyUsage')";
+
+if ($conn->query($sql4) === TRUE) {
+    echo "Data inserted successfully for Air Purifier.<br>";
+} else {
+    echo "Error inserting data for Air Purifier: " . $conn->error . "<br>";
+}
+
+// Insert data into the Window Sensor table
+$sql5 = "INSERT INTO window_sensor (status, room, energy_usage)
+         VALUES ('$device5Status', '$device5Room', '$device5EnergyUsage')";
+
+if ($conn->query($sql5) === TRUE) {
+    echo "Data inserted successfully for Window Sensor.<br>";
+} else {
+    echo "Error inserting data for Window Sensor: " . $conn->error . "<br>";
+}
+
+// Insert data into the Security Alarm table
+$sql6 = "INSERT INTO security_alarm (status, volume, room, energy_usage)
+         VALUES ('$device6Status', '$device6Volume', '$device6Room', '$device6EnergyUsage')";
+
+if ($conn->query($sql6) === TRUE) {
+    echo "Data inserted successfully for Security Alarm.<br>";
+} else {
+    echo "Error inserting data for Security Alarm: " . $conn->error . "<br>";
+}
+
+// Insert data into the Door Sensor table
+$sql7 = "INSERT INTO door_sensor (status, room, energy_usage)
+         VALUES ('$device7Status', '$device7Room', '$device7EnergyUsage')";
+
+if ($conn->query($sql7) === TRUE) {
+    echo "Data inserted successfully for Door Sensor.<br>";
+} else {
+    echo "Error inserting data for Door Sensor: " . $conn->error . "<br>";
+}
+
+// Insert data into the Motion Sensor table
+$sql8 = "INSERT INTO motion_sensor (motion_detected, room, energy_usage)
+         VALUES ('$device8Motion', '$device8Room', '$device8EnergyUsage')";
+
+if ($conn->query($sql8) === TRUE) {
+    echo "Data inserted successfully for Motion Sensor.<br>";
+} else {
+    echo "Error inserting data for Motion Sensor: " . $conn->error . "<br>";
+}
+
+if ($conn->query($sql9) === TRUE) {
+    echo "Data inserted successfully for Thermostat.<br>";
+} else {
+    echo "Error inserting data for Thermostat: " . $conn->error . "<br>";
+}
+
+// Close the database connection
+$conn->close();
 ?>
