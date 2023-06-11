@@ -1,3 +1,51 @@
+<?php
+$hostName = "localhost";
+$userName = "root";
+$password = "";
+$databaseName = "autohome";
+ $conn = new mysqli($hostName, $userName, $password, $databaseName);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$tableNames = ['air_conditioner', 'lights', 'robot_vacuum_cleaner', 'air_purifier']; 
+$columns = ['id', 'name', 'status', 'type', 'temperature', 'mode', 'fan_speed', 'intensity', 'color', 'battery', 'filtration_level', 'ionizer', 'motion'];
+
+$fetchData = [];
+
+foreach ($tableNames as $tableName) {
+    $data = fetch_data($db, $tableName, $columns);
+    $fetchData[$tableName] = $data;
+}
+function fetch_data($db, $tableName, $columns)
+{
+    if (empty($db)) {
+        $msg = "Database connection error";
+    } elseif (empty($columns) || !is_array($columns)) {
+        $msg = "Columns Name must be defined in an indexed array";
+    } elseif (empty($tableName)) {
+        $msg = "Table Name is empty";
+    } else {
+        $columnName = implode(", ", $columns);
+        $query = "SELECT " . $columnName . " FROM $tableName" . " ORDER BY id DESC";
+        $result = $db->query($query);
+
+        if ($result == true) {
+            if ($result->num_rows > 0) {
+                $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                $msg = $row;
+            } else {
+                $msg = "No Data Found";
+            }
+        } else {
+            $msg = mysqli_error($db);
+        }
+    }
+    return $msg;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +80,7 @@
     <div class="container py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto" data-aos="fade" data-aos-duration="2000">
-                <h2>KITCHEN DEVICES</h2>
+                <h2>LIVING ROOM DEVICES</h2>
                 <p>Discover a multitude of smart devices that are designed to work in harmony with our smart home system.</p>
             </div>
         </div>
