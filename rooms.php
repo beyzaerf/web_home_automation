@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
+    <title>Rooms</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/animate.min.css">
     <link rel="stylesheet" href="assets/css/Hero-Clean-images.css">
@@ -36,38 +36,52 @@
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <div class="col">
-                <div><a href="#"><img class="rounded img-fluid d-block w-100 fit-cover" data-bss-hover-animate="pulse" style="height: 200px;" src="assets/img/living.jpg"></a>
-                    <div class="py-4">
-                        <h4>Living Room</h4>
-                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                        <a class="btn btn-primary" role="button" href="devices-lroom.php">Devices</a>
+            <?php
+            // Fetch room data from the database
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "autohome";
+    
+            // Create a database connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+    
+            // Check the connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+    
+            // Retrieve room data from the database
+            $sql = "SELECT room_name FROM Room";
+            $result = $conn->query($sql);
+    
+            // Display rooms dynamically
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $roomName = $row['room_name'];
+            ?>
+                    <div class="col">
+                        <div>
+                            <a href="#"><img class="rounded img-fluid d-block w-100 fit-cover" data-bss-hover-animate="pulse" style="height: 200px;" src="assets/img/<?php echo strtolower($roomName); ?>.jpg"></a>
+                            <div class="py-4">
+                                <h4><?php echo $roomName; ?></h4>
+                                <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                <a class="btn btn-primary" role="button" href="devices-<?php echo strtolower($roomName); ?>.php">Devices</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col">
-                <div><a href="#"><img class="rounded img-fluid d-block w-100 fit-cover" data-bss-hover-animate="pulse" style="height: 200px;" src="assets/img/kitchen.jpg"></a>
-                    <div class="py-4">
-                        <h4>Kitchen</h4>
-                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                        <a class="btn btn-primary" role="button" href="devices-kitchen.php">Devices</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div><a href="#"><img class="rounded img-fluid d-block w-100 fit-cover" data-bss-hover-animate="pulse" style="height: 200px;" src="assets/img/bed.jpg"></a>
-                    <div class="py-4">
-                        <h4>Bedroom</h4>
-                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                        <a class="btn btn-primary" role="button" href="devices-bedroom.php">Devices</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div></div>
-            </div>
+            <?php
+                }
+            } else {
+                echo "No rooms found.";
+            }
+    
+            // Close the database connection
+            $conn->close();
+            ?>
         </div>
     </div>
+    
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/Lightbox-Gallery-baguetteBox.min.js"></script>
