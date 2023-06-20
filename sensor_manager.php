@@ -102,44 +102,48 @@
 <head>
 <body>
 	<h1>Sensor Management</h1>
-	<form>
-		<h2>Add Sensor</h2>
-		<label for="sensor_name">Sensor Name:</label>
-		<input type="text" id="sensor_name" name="sensor_name" required>
-		<label for="sensor_type">Sensor Type:</label>
-		<input type="text" id="sensor_type" name="sensor_type" required>
-		<label for="sensor_location">Sensor Location:</label>
-		<input type="text" id="sensor_location" name="sensor_location" required>
-		<label for="sensor_threshold">Sensor Threshold:</label>
-		<input type="number" id="sensor_threshold" name="sensor_threshold" required>
-		<input type="submit" value="Add Sensor">
-	</form>
-	<table>
-        <h2>Current Sensors</h2>
-		<tr>
-			<th>Sensor Name</th>
-			<th>Sensor Type</th>
-			<th>Sensor Location</th>
-			<th>Sensor Threshold</th>
-		</tr>
-		<tr>
-			<td>Sensor 1</td>
-			<td>Temperature</td>
-			<td>Living Room</td>
-			<td>25</td>
-		</tr>
-		<tr>
-			<td>Sensor 2</td>
-			<td>Humidity</td>
-			<td>Bathroom</td>
-			<td>60</td>
-		</tr>
-		<tr>
-			<td>Sensor 3</td>
-			<td>Light</td>
-			<td>Kitchen</td>
-			<td>50</td>
-		</tr>
-	</table>
+    <form method="POST" action="add_device.php">
+        <h2>Add Device</h2>
+        <label for="device_id">Device ID:</label>
+        <input type="text" id="device_id" name="device_id" required>
+        <label for="room_id">Room ID:</label>
+        <input type="text" id="room_id" name="room_id" required>
+        <label for="device_name">Device Name:</label>
+        <input type="text" id="device_name" name="device_name" required>
+        <label for="device_status">Device Status:</label>
+        <input type="text" id="device_status" name="device_status" required>
+        <input type="submit" value="Add Device">
+    </form>
+
+    <table>
+        <h2>Current Devices</h2>
+        <tr>
+            <th>Device ID</th>
+            <th>Room ID</th>
+            <th>Device Name</th>
+            <th>Device Status</th>
+        </tr>
+        <?php
+        // Fetch data from the database and populate the table rows dynamically
+        $conn = mysqli_connect("localhost", "root", "", "autohome");
+
+        if ($conn) {
+            $query = "SELECT * FROM Device";
+            $result = mysqli_query($conn, $query);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['device_id'] . "</td>";
+                echo "<td>" . $row['room_id'] . "</td>";
+                echo "<td>" . $row['device_name'] . "</td>";
+                echo "<td>" . $row['device_status'] . "</td>";
+                echo "</tr>";
+            }
+
+            mysqli_close($conn);
+        }
+        ?>
+    </table>
 </body>
+
 </html>
