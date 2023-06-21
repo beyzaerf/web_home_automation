@@ -20,32 +20,67 @@
                     </svg></span><span>AutoHome</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="producer_home_page.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="producer_home_page.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
                 </ul><a class="btn btn-primary ms-md-2" role="button" href="login.html">Logout</a>
             </div>
         </div>
     </nav>
-    <section data-aos="fade" data-aos-duration="2000" class="py-4 py-xl-5">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
-                    <div>
-                        <h2 class="text-uppercase fw-bold mb-3">Welcome to your Smart Home System dashboard!</h2>
-                        <p class="mb-4">Easily control all of your smart devices and add new ones. Click the Data Generator button to configure your data's constraints. Or, click the Manage Sensors button to view your current sensors or add new ones. Simplify your smart home experience with our intuitive interface and advanced technology. Start exploring now!</p>
-                        <button class="btn btn-primary fs-5 me-2 py-2 px-4" type="button" onclick="window.location.href='add_device_parameter.php';">Add Parameter</button>
-                        <button class="btn btn-outline-primary fs-5 py-2 px-4" type="button" onclick="window.location.href='sensor_manager.php';">Manage Sensors</button>
-                        <button class="btn btn-primary fs-5 me-2 py-2 px-4" type="button" onclick="window.location.href='display_devices.php';">Device Display</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/aos.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/Lightbox-Gallery-baguetteBox.min.js"></script>
-    <script src="assets/js/Lightbox-Gallery.js"></script>
-</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Device Parameter</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <h1>Add Device Parameter</h1>
+    
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $device_id = $_POST["device_id"];
+        $parameter_name = $_POST["parameter_name"];
+        $parameter_value = $_POST["parameter_value"];
 
+        // Connect to your database
+        $conn = mysqli_connect("localhost", "root", "", "autohome");
+
+        if ($conn) {
+            // Check if the device exists in the database
+            $check_query = "SELECT * FROM device WHERE device_id = '$device_id'";
+            $check_result = mysqli_query($conn, $check_query);
+
+            if (mysqli_num_rows($check_result) > 0) {
+                // Device exists, save the parameter
+                $insert_query = "INSERT INTO deviceparameter (device_id, parameter_name, parameter_value)
+                                 VALUES ('$device_id', '$parameter_name', '$parameter_value')";
+
+                if (mysqli_query($conn, $insert_query)) {
+                    echo "<p>Device parameter saved successfully.</p>";
+                } else {
+                    echo "<p>Error: " . mysqli_error($conn) . "</p>";
+                }
+            } else {
+                echo "<p>Error: Device not found.</p>";
+            }
+
+            mysqli_close($conn);
+        } else {
+            echo "<p>Error: Failed to connect to the database.</p>";
+        }
+    }
+    ?>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
+        <label for="device_id">Device ID:</label>
+        <input type="text" id="device_id" name="device_id" required>
+        
+        <label for="parameter_name">Parameter Name:</label>
+        <input type="text" id="parameter_name" name="parameter_name" required>
+        
+        <label for="parameter_value">Parameter Value:</label>
+        <input type="text" id="parameter_value" name="parameter_value" required>
+        
+        <button type="submit">Save Parameter</button>
+    </form>
+</body>
 </html>

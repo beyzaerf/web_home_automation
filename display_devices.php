@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
+    <title>Welcome, Producer!</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/aos.min.css">
     <link rel="stylesheet" href="assets/css/Hero-Clean-images.css">
     <link rel="stylesheet" href="assets/css/Lightbox-Gallery-baguetteBox.min.css">
     <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
@@ -19,41 +20,58 @@
                     </svg></span><span>AutoHome</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="rooms.html">Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link" href="alerts.html">Alerts</a></li>
-                    <li class="nav-item"><a class="nav-link" href="statistics.html">Statistics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="producer_home_page.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-                </ul><a class="btn btn-primary ms-md-2" role="button" href="index.html">Logout</a>
+                </ul><a class="btn btn-primary ms-md-2" role="button" href="login.html">Logout</a>
             </div>
         </div>
     </nav>
-    <section class="py-4 py-xl-5">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2>Login</h2>
-                    <p>Welcome to the login page for our Smart Home System! To access your personalized dashboard and control your smart devices, please enter your login credentials below.</p>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6 col-xl-4">
-                    <div class="card mb-5">
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <form class="text-center" action="login.php" method="post">
-                                <div class="mb-3"><input class="form-control" type="text" name="username" placeholder="Consumer: c Producer: p"></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password: 123"></div>
-                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/Lightbox-Gallery-baguetteBox.min.js"></script>
-    <script src="assets/js/Lightbox-Gallery.js"></script>
-</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devices and Parameters</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Devices and Parameters</h1>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Device ID</th>
+                <th>Device Name</th>
+                <th>Device Status</th>
+                <th>Parameter Name</th>
+                <th>Parameter Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Connect to your database
+            $conn = mysqli_connect("localhost", "root", "", "autohome");
+            
+            if ($conn) {
+                // Fetch devices and parameters data from the database
+                $query = "SELECT d.device_id, d.device_name, d.device_status, dp.parameter_name, dp.parameter_value
+                          FROM device AS d
+                          INNER JOIN deviceparameter AS dp ON d.device_id = dp.device_id";
+                
+                $result = mysqli_query($conn, $query);
+                
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>".$row['device_id']."</td>";
+                    echo "<td>".$row['device_name']."</td>";
+                    echo "<td>".$row['device_status']."</td>";
+                    echo "<td>".$row['parameter_name']."</td>";
+                    echo "<td>".$row['parameter_value']."</td>";
+                    echo "</tr>";
+                }
+                
+                mysqli_close($conn);
+            }
+            ?>
+        </tbody>
+    </table>
+</body>
 </html>
