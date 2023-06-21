@@ -1,16 +1,17 @@
 <?php
-ob_start(); // Start output buffering
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    var_dump($_POST);
+
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $user_type = $_POST["user_type"];
 
     // Connect to your database
     $conn = mysqli_connect("localhost", "root", "", "autohome");
 
     if ($conn) {
         // Check if the username exists in the database
-        $query = "SELECT * FROM user WHERE username='$username'";
+        $query = "SELECT * FROM users WHERE username='$username'";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result) > 0) {
@@ -30,12 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // Username doesn't exist, insert a new user record
-            $insertQuery = "INSERT INTO user (username, password) VALUES ('$username', '$password')";
+            $insertQuery = "INSERT INTO users (user_type, username, password) VALUES ('$user_type' ,'$username', '$password')";
             $insertResult = mysqli_query($conn, $insertQuery);
 
             if ($insertResult) {
                 // User successfully signed up, redirect to the respective home page
-                header("Location: consumer_home.html");
+                header("Location: login.php");
                 exit();
             } else {
                 $error_msg = "Failed to sign up";
@@ -48,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-ob_end_flush(); // Send the output to the browser
+ob_start();
 ?>
 
 
@@ -91,7 +92,7 @@ ob_end_flush(); // Send the output to the browser
                 <div class="col-md-6 col-xl-4">
                     <div class="card mb-5">
                         <div class="card-body d-flex flex-column align-items-center">
-                            <form class="text-center" method="POST">
+                            <form class="text-center" method="POST" action="">
                                 <div class="mb-3">
                                     <select class="form-control" name="user_type">
                                         <option value="consumer">Consumer</option>
@@ -117,3 +118,7 @@ ob_end_flush(); // Send the output to the browser
 </body>
 
 </html>
+
+<?php
+ob_end_flush();
+?>
