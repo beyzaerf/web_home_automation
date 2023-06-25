@@ -70,7 +70,7 @@ function fetch_data($db, $tableName, $columns)
                     </svg></span><span>AutoHome</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="rooms.html">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="rooms.php">Rooms</a></li>
                     <li class="nav-item"><a class="nav-link" href="alerts.html">Alerts</a></li>
                     <li class="nav-item"><a class="nav-link" href="statistics.html">Statistics</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
