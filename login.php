@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Username doesn't exist, insert a new user record
             $insertQuery = "INSERT INTO users (user_type, username, password) VALUES ('$user_type' ,'$username', '$password')";
-            $insertResult = mysqli_query($conn, $insertQuery);
+           // $insertResult = mysqli_query($conn, $insertQuery);
 
             if ($insertResult) {
                 // User successfully signed up, redirect to the respective home page

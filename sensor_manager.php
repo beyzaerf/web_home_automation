@@ -40,7 +40,7 @@
             text-align: left;
         }
 
-		input[type="text"], input[type="number"] {
+		input[type="text"], input[type="number"], input[type="dropdown"] {
 			padding: 8px;
 			border: 1px solid #ccc;
 			border-radius: 4px;
@@ -99,15 +99,31 @@
             </div>
         </div>
     </nav>
-<head>
+    <head>
 <body>
-	<h1>Sensor Management</h1>
+    <h1>Sensor Management</h1>
     <form method="POST" action="add_device.php">
         <h2>Add Device</h2>
         <label for="device_id">Device ID:</label>
         <input type="text" id="device_id" name="device_id" required>
-        <label for="room_id">Room ID:</label>
-        <input type="text" id="room_id" name="room_id" required>
+        <label for="room_id">Room Name:</label>
+        <select id="room_id" name="room_id" required>
+            <?php
+            // Fetch room names from the database
+            $conn = mysqli_connect("localhost", "root", "", "autohome");
+
+            if ($conn) {
+                $query = "SELECT * FROM Room";
+                $result = mysqli_query($conn, $query);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<option value='" . $row['room_id'] . "'>" . $row['room_name'] . "</option>";
+                }
+
+                mysqli_close($conn);
+            }
+            ?>
+        </select>
         <label for="device_name">Device Name:</label>
         <input type="text" id="device_name" name="device_name" required>
         <label for="device_status">Device Status:</label>
@@ -119,7 +135,7 @@
         <h2>Current Devices</h2>
         <tr>
             <th>Device ID</th>
-            <th>Room ID</th>
+            <th>Room Name</th>
             <th>Device Name</th>
             <th>Device Status</th>
         </tr>
@@ -132,9 +148,15 @@
             $result = mysqli_query($conn, $query);
 
             while ($row = mysqli_fetch_assoc($result)) {
+                // Fetch room name based on room ID
+                $roomQuery = "SELECT room_name FROM Room WHERE room_id = " . $row['room_id'];
+                $roomResult = mysqli_query($conn, $roomQuery);
+                $roomRow = mysqli_fetch_assoc($roomResult);
+                $roomName = $roomRow['room_name'];
+
                 echo "<tr>";
                 echo "<td>" . $row['device_id'] . "</td>";
-                echo "<td>" . $row['room_id'] . "</td>";
+                echo "<td>" . $roomName . "</td>";
                 echo "<td>" . $row['device_name'] . "</td>";
                 echo "<td>" . $row['device_status'] . "</td>";
                 echo "</tr>";
@@ -145,5 +167,5 @@
         ?>
     </table>
 </body>
-
 </html>
+
