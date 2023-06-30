@@ -1,6 +1,5 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    var_dump($_POST);
 
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -32,12 +31,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Username doesn't exist, insert a new user record
             $insertQuery = "INSERT INTO users (user_type, username, password) VALUES ('$user_type' ,'$username', '$password')";
-           // $insertResult = mysqli_query($conn, $insertQuery);
+            $insertResult = mysqli_query($conn, $insertQuery);
+            
+            $row = mysqli_fetch_assoc($insertResult);
 
             if ($insertResult) {
-                // User successfully signed up, redirect to the respective home page
-                header("Location: login.php");
-                exit();
+                if ($row['user_type'] === "consumer") {
+                    header("Location: consumer_home.html");
+                    exit();
+                } else if ($row['user_type'] === "producer") {
+                    header("Location: producer_home_page.html");
+                    exit();
+                }
             } else {
                 $error_msg = "Failed to sign up";
             }
