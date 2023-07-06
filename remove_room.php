@@ -28,21 +28,20 @@
             </div>
         </div>
     </nav>
+
 <?php
 require_once 'db_connection.php';
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the form input
-    $deviceName = $_POST["device_name"];
-    $roomId = "SELECT room_id FROM Room WHERE room_name = " . $row['room_name']; 
-    $roomName = $_POST["room_name"];
+// Check if the room ID is provided in the query string
+if (isset($_GET['RoomID'])) {
+    // Get the room ID from the query string
+    $roomId = $_GET['RoomID'];
 
-    // Prepare and execute the SQL statement to insert a new device
-    $sql = "INSERT INTO Devices (DeviceName, RoomID) VALUES ('$deviceName', '$roomId')";
+    // Prepare and execute the SQL statement to delete the room and its associated devices
+    $sql = "DELETE FROM Rooms WHERE RoomID = '$roomId'";
     if ($conn->query($sql) === TRUE) {
-        echo "New device added successfully.";
+        echo "Room and associated devices deleted successfully.";
     } else {
-        echo "Error adding device: " . $conn->error;
+        echo "Error deleting room: " . $conn->error;
     }
 }
 
@@ -54,11 +53,12 @@ $conn->close();
 <div class="col text-center">
     <form action="" method="post">
         <div class="mb-3">
-            <input type="text" class="form-control" name="device_name" placeholder="Device Name" required>
+            <input type="number" class="form-control" name="room_id" placeholder="Room Id" required>
             <input type="text" class="form-control" name="room_name" placeholder="Room Name" required>
         </div>
-        <button type="submit" class="btn btn-primary" name="add_room">Add Device</button>
+        <button type="submit" class="btn btn-primary" name="remove_room">Remove Room</button>
     </form>
 </div>
 </div>
 </div>
+

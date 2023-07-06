@@ -10,6 +10,43 @@
     <link rel="stylesheet" href="assets/css/Hero-Clean-images.css">
     <link rel="stylesheet" href="assets/css/Lightbox-Gallery-baguetteBox.min.css">
     <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
+    <link rel="stylesheet" href="path/to/your/stylesheet.css">
+    <style>
+        /* CSS for the rooms list */
+        h2 {
+        font-size: 24px;
+        font-weight: bold;
+        }
+
+        ul {
+        list-style: none;
+        padding-left: 0;
+        }
+
+        li {
+        margin-bottom: 10px;
+        }
+
+        a {
+        text-decoration: none;
+        color: blue;
+        }
+
+        /* CSS for the "No rooms found" message */
+        p {
+        margin-bottom: 10px;
+        }
+
+        /* CSS for the "Add Room" and "Remove Room" links */
+        a[href='add_room.php'],
+        a[href='remove_room.php'] {
+        display: inline-block;
+        margin-right: 10px;
+        text-decoration: none;
+        color: blue;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -28,37 +65,53 @@
             </div>
         </div>
     </nav>
+    <!-- index.php -->
+<div class="container py-4 py-xl-5">
+    <div class="row mb-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <h2>ROOMS</h2>
+            <p>Welcome to the Rooms page of your Smart Home System! Here you can view and manage all the rooms in your home, including their connected devices, settings, and preferences.</p>
+        </div>
+    </div>
+    <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+    <div class="col text-center">
 <?php
 require_once 'db_connection.php';
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the form input
-    $deviceName = $_POST["device_name"];
-    $roomId = "SELECT room_id FROM Room WHERE room_name = " . $row['room_name']; 
-    $roomName = $_POST["room_name"];
 
-    // Prepare and execute the SQL statement to insert a new device
-    $sql = "INSERT INTO Devices (DeviceName, RoomID) VALUES ('$deviceName', '$roomId')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New device added successfully.";
-    } else {
-        echo "Error adding device: " . $conn->error;
+// Query the database to retrieve rooms
+$roomSql = "SELECT * FROM Room";
+$roomResult = $conn->query($roomSql);
+
+// Check if any rooms exist
+if ($roomResult->num_rows > 0) {
+    echo "<h2>Manage Rooms</h2>";
+    echo "<ul>";
+    while ($row = $roomResult->fetch_assoc()) {
+        echo "<li>" . $row["room_name"] . "</li>";
+        echo "<ul>";
+        echo "<li><a href='add_device.php?room_id=" . $row["RoomID"] . "'>Add Device</a></li>";
+        echo "<li><a href='manage_devices.php?room_id=" . $row["RoomID"] . "'>Manage Devices</a></li>";
+        echo "</ul>";
     }
+    echo "</ul>";
+    echo "<p><a href='add_room.php'>Add Room</a></p>";
+    echo "<p><a href='remove_room.php'>Remove Room</a></p>";
+} else {
+    echo "<p>No rooms found.</p>";
+    echo "<p><a href='add_room.php'>Add Room</a></p>";
 }
 
-// Close the database connection
+// Close the result set
+$roomResult->close();
+
 $conn->close();
 ?>
 
-<div class="row">
-<div class="col text-center">
-    <form action="" method="post">
-        <div class="mb-3">
-            <input type="text" class="form-control" name="device_name" placeholder="Device Name" required>
-            <input type="text" class="form-control" name="room_name" placeholder="Room Name" required>
-        </div>
-        <button type="submit" class="btn btn-primary" name="add_room">Add Device</button>
-    </form>
-</div>
-</div>
-</div>
+
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/bs-init.js"></script>
+<script src="assets/js/Lightbox-Gallery-baguetteBox.min.js"></script>
+<script src="assets/js/Lightbox-Gallery.js"></script>
+</body>
+
+</html>

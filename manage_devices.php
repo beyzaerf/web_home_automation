@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Welcome, Producer!</title>
+    <title>Rooms</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/aos.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
     <link rel="stylesheet" href="assets/css/Hero-Clean-images.css">
     <link rel="stylesheet" href="assets/css/Lightbox-Gallery-baguetteBox.min.css">
     <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
@@ -20,58 +20,45 @@
                     </svg></span><span>AutoHome</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="producer_home_page.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="rooms.php">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="alerts.html">Alerts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="statistics.html">Statistics</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-                </ul><a class="btn btn-primary ms-md-2" role="button" href="login.php">Logout</a>
+                </ul><a class="btn btn-primary ms-md-2" role="button" href="index.html">Logout</a>
             </div>
         </div>
     </nav>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devices and Parameters</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Devices and Parameters</h1>
+<?php
+require_once 'db_connection.php';
 
-    <table>
-        <thead>
-            <tr>
-                <th>Device ID</th>
-                <th>Device Name</th>
-                <th>Device Status</th>
-                <th>Parameter Name</th>
-                <th>Parameter Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Connect to your database
-            $conn = mysqli_connect("localhost", "root", "", "autohome");
-            
-            if ($conn) {
-                // Fetch devices and parameters data from the database
-                $query = "SELECT d.device_id, d.device_name, d.device_status, dp.parameter_name, dp.parameter_value
-                          FROM device AS d
-                          INNER JOIN deviceparameter AS dp ON d.device_id = dp.device_id";
-                
-                $result = mysqli_query($conn, $query);
-                
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td>".$row['device_id']."</td>";
-                    echo "<td>".$row['device_name']."</td>";
-                    echo "<td>".$row['device_status']."</td>";
-                    echo "<td>".$row['parameter_name']."</td>";
-                    echo "<td>".$row['parameter_value']."</td>";
-                    echo "</tr>";
-                }
-                
-                mysqli_close($conn);
-            }
-            ?>
-        </tbody>
-    </table>
-</body>
-</html>
+// Check if the room ID is provided in the query string
+if (isset($_GET['room_id'])) {
+    // Get the room ID from the query string
+    $roomId = $_GET['room_id'];
+
+    // Query the database to retrieve devices for the specified room
+    $deviceSql = "SELECT * FROM Devices WHERE RoomID = '$roomId'";
+    $deviceResult = $conn->query($deviceSql);
+
+    // Check if any devices exist
+    if ($deviceResult->num_rows > 0) {
+        echo "<h2>Manage Devices</h2>";
+        while ($row = $deviceResult->fetch_assoc()) {
+            echo "<p>" . $row["DeviceName"] . "</p>";
+        }
+        echo "<p><a href='add_device.php?room_id=" . $roomId . "'>Add Device</a></p>";
+        echo "<p><a href='remove_device.php?room_id=" . $roomId . "'>Remove Device</a></p>";
+    } else {
+        echo "<p>No devices found for this room.</p>";
+        echo "<p><a href='add_device.php?room_id=" . $roomId . "'>Add Device</a></p>";
+    }
+
+    // Close the result set
+    $deviceResult->close();
+} else {
+    echo "<p>Invalid room ID.</p>";
+}
+
+// Close the database connection
+$conn->close();
+?>

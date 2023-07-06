@@ -33,16 +33,14 @@ require_once 'db_connection.php';
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the form input
-    $deviceName = $_POST["device_name"];
-    $roomId = "SELECT room_id FROM Room WHERE room_name = " . $row['room_name']; 
     $roomName = $_POST["room_name"];
 
-    // Prepare and execute the SQL statement to insert a new device
-    $sql = "INSERT INTO Devices (DeviceName, RoomID) VALUES ('$deviceName', '$roomId')";
+    // Prepare and execute the SQL statement to insert a new room
+    $sql = "INSERT INTO Room (room_name) VALUES ('$roomName')";
     if ($conn->query($sql) === TRUE) {
-        echo "New device added successfully.";
+        echo "New room added successfully.";
     } else {
-        echo "Error adding device: " . $conn->error;
+        echo "Error adding room: " . $conn->error;
     }
 }
 
@@ -50,14 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
+<!-- Add Room form -->
 <div class="row">
 <div class="col text-center">
     <form action="" method="post">
         <div class="mb-3">
-            <input type="text" class="form-control" name="device_name" placeholder="Device Name" required>
             <input type="text" class="form-control" name="room_name" placeholder="Room Name" required>
         </div>
-        <button type="submit" class="btn btn-primary" name="add_room">Add Device</button>
+        <button type="submit" class="btn btn-primary" name="add_room">Add Room</button>
     </form>
 </div>
 </div>
