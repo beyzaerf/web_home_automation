@@ -34,15 +34,27 @@ require_once 'db_connection.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the form input
     $deviceName = $_POST["device_name"];
-    $roomId = "SELECT room_id FROM Room WHERE room_name = " . $row['room_name']; 
     $roomName = $_POST["room_name"];
+    $deviceStatus = $_POST["device_status"];
 
-    // Prepare and execute the SQL statement to insert a new device
-    $sql = "INSERT INTO Devices (DeviceName, RoomID) VALUES ('$deviceName', '$roomId')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New device added successfully.";
+    // Prepare and execute the SQL statement to retrieve the room_id based on room_name
+    $sql = "SELECT room_id FROM Room WHERE room_name = '$roomName'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Fetch the room_id
+        $row = $result->fetch_assoc();
+        $roomId = $row["room_id"];
+
+        // Prepare and execute the SQL statement to insert a new device
+        $sql = "INSERT INTO Device (device_name, room_id, device_status) VALUES ('$deviceName', '$roomId', '$deviceStatus')";
+        if ($conn->query($sql) === TRUE) {
+            echo "New device added successfully.";
+        } else {
+            echo "Error adding device: " . $conn->error;
+        }
     } else {
-        echo "Error adding device: " . $conn->error;
+        echo "Room not found.";
     }
 }
 
@@ -56,6 +68,10 @@ $conn->close();
         <div class="mb-3">
             <input type="text" class="form-control" name="device_name" placeholder="Device Name" required>
             <input type="text" class="form-control" name="room_name" placeholder="Room Name" required>
+            <select class="form-control" name="device_status" required>
+                <option value="on">On</option>
+                <option value="off">Off</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary" name="add_room">Add Device</button>
     </form>

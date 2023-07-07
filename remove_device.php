@@ -28,22 +28,48 @@
             </div>
         </div>
     </nav>
+    
 <?php
 require_once 'db_connection.php';
-// Check if the device ID is provided in the query string
-if (isset($_GET['device_id'])) {
-    // Get the device ID from the query string
-    $deviceId = $_GET['device_id'];
 
-    // Prepare and execute the SQL statement to delete the device
-    $sql = "DELETE FROM Devices WHERE DeviceID = '$deviceId'";
-    if ($conn->query($sql) === TRUE) {
-        echo "Device deleted successfully.";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the form input
+    $deviceName = $_POST["device_name"];
+
+    // Prepare and execute the SQL statement to retrieve the device ID based on device name
+    $sql = "SELECT device_id FROM Device WHERE device_name = '$deviceName'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Fetch the device ID
+        $row = $result->fetch_assoc();
+        $deviceId = $row["device_id"];
+
+        // Prepare and execute the SQL statement to delete the device
+        $sql = "DELETE FROM Device WHERE device_id = '$deviceId'";
+        if ($conn->query($sql) === TRUE) {
+            echo "Device deleted successfully.";
+        } else {
+            echo "Error deleting device: " . $conn->error;
+        }
     } else {
-        echo "Error deleting device: " . $conn->error;
+        echo "Device not found.";
     }
 }
 
 // Close the database connection
 $conn->close();
 ?>
+
+
+<div class="row">
+<div class="col text-center">
+    <form action="" method="post">
+        <div class="mb-3">
+            <input type="text" class="form-control" name="device_name" placeholder="Device Name" required>
+        </div>
+        <button type="submit" class="btn btn-primary" name="remove_device">Remove Device</button>
+    </form>
+</div>
+</div>
+</div>

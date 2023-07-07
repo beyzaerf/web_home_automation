@@ -46,12 +46,12 @@
 
         if ($conn) {
             // Check if the device exists in the database
-            $check_query = "SELECT * FROM device WHERE device_id = '$device_id'";
+            $check_query = "SELECT * FROM Device WHERE device_id = '$device_id'";
             $check_result = mysqli_query($conn, $check_query);
 
             if (mysqli_num_rows($check_result) > 0) {
                 // Device exists, save the parameter
-                $insert_query = "INSERT INTO deviceparameter (device_id, parameter_name, parameter_value)
+                $insert_query = "INSERT INTO DeviceParameter (device_id, parameter_name, parameter_value)
                                  VALUES ('$device_id', '$parameter_name', '$parameter_value')";
 
                 if (mysqli_query($conn, $insert_query)) {
