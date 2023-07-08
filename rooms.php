@@ -66,7 +66,34 @@
                             <div class="py-4">
                                 <h4><?php echo $roomName; ?></h4>
                                 <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                <a class="btn btn-primary" role="button" href="devices-<?php echo strtolower($roomName); ?>.php">Devices</a>
+                                <a class="btn btn-primary" role="button" onclick="openPopup('<?php echo $roomName; ?>')">Devices</a>
+                                <script>
+function openPopup(roomName) {
+    var popup = window.open('', 'DevicePopup', 'width=600,height=400');
+    popup.document.write('<html><head><title>Devices</title>');
+    popup.document.write('<link rel="stylesheet" href="path/to/your/styles.css">'); // Replace with the path to your CSS file
+    popup.document.write('</head><body>');
+    popup.document.write('<div class="container py-4 py-xl-5">');
+    popup.document.write('<div class="row mb-5">');
+    popup.document.write('<div class="col-md-8 col-xl-6 text-center mx-auto">');
+    popup.document.write('<h2>Loading devices...</h2>');
+    popup.document.write('</div></div></div>');
+    popup.document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>');
+    popup.document.write('<script>');
+    popup.document.write('$(document).ready(function() {');
+    popup.document.write('$.ajax({');
+    popup.document.write('url: "devices.php?room=' + encodeURIComponent(roomName) + '",');
+    popup.document.write('success: function(data) {');
+    popup.document.write('$(".container").html(data);');
+    popup.document.write('}');
+    popup.document.write('});');
+    popup.document.write('});');
+    popup.document.write('</script>');
+    popup.document.write('</body></html>');
+}
+</script>
+
+    
                             </div>
                         </div>
                     </div>
