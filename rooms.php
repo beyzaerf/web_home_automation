@@ -36,76 +36,54 @@
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <?php
-            // Fetch room data from the database
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "autohome";
-    
-            // Create a database connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-    
-            // Check the connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-    
-            // Retrieve room data from the database
-            $sql = "SELECT room_name FROM Room";
-            $result = $conn->query($sql);
-    
-            // Display rooms dynamically
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $roomName = $row['room_name'];
-            ?>
-                    <div class="col">
-                        <div>
-                            <a href="#"><img class="rounded img-fluid d-block w-100 fit-cover" data-bss-hover-animate="pulse" style="height: 200px;" src="assets/img/<?php echo strtolower($roomName); ?>.jpg"></a>
-                            <div class="py-4">
-                                <h4><?php echo $roomName; ?></h4>
-                                <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                <a class="btn btn-primary" role="button" onclick="openPopup('<?php echo $roomName; ?>')">Devices</a>
-                                <script>
-function openPopup(roomName) {
-    var popup = window.open('', 'DevicePopup', 'width=600,height=400');
-    popup.document.write('<html><head><title>Devices</title>');
-    popup.document.write('<link rel="stylesheet" href="path/to/your/styles.css">'); // Replace with the path to your CSS file
-    popup.document.write('</head><body>');
-    popup.document.write('<div class="container py-4 py-xl-5">');
-    popup.document.write('<div class="row mb-5">');
-    popup.document.write('<div class="col-md-8 col-xl-6 text-center mx-auto">');
-    popup.document.write('<h2>Loading devices...</h2>');
-    popup.document.write('</div></div></div>');
-    popup.document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>');
-    popup.document.write('<script>');
-    popup.document.write('$(document).ready(function() {');
-    popup.document.write('$.ajax({');
-    popup.document.write('url: "devices.php?room=' + encodeURIComponent(roomName) + '",');
-    popup.document.write('success: function(data) {');
-    popup.document.write('$(".container").html(data);');
-    popup.document.write('}');
-    popup.document.write('});');
-    popup.document.write('});');
-    popup.document.write('</script>');
-    popup.document.write('</body></html>');
-}
-</script>
+    <?php
+    // Fetch room data from the database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "autohome";
 
-    
-                            </div>
-                        </div>
+    // Create a database connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Retrieve room data from the database
+    $sql = "SELECT room_name FROM Room";
+    $result = $conn->query($sql);
+
+    // Display rooms dynamically
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $roomName = $row['room_name'];
+    ?>
+            <div class="col">
+                <div>
+                    <div class="py-4">
+                        <h4><?php echo $roomName; ?></h4>
+                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <a class="btn btn-primary" role="button" onclick="openPopup('<?php echo $roomName; ?>')">Devices</a>
                     </div>
-            <?php
-                }
-            } else {
-                echo "No rooms found.";
+                </div>
+            </div>
+            <script>
+            function openPopup(roomName) {
+                var popup = window.open('', 'DevicePopup', 'width=600,height=400');
+                var url = 'devices.php?room=' + encodeURIComponent(roomName);
+                popup.location.href = url;
             }
-    
-            // Close the database connection
-            $conn->close();
-            ?>
+            </script>
+    <?php
+        }
+    } else {
+        echo "No rooms found.";
+    }
+    $conn->close();
+    ?>
+</div>
         </div>
     </div>
     

@@ -11,42 +11,6 @@
     <link rel="stylesheet" href="assets/css/Lightbox-Gallery-baguetteBox.min.css">
     <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
     <link rel="stylesheet" href="path/to/your/stylesheet.css">
-    <style>
-        /* CSS for the rooms list */
-        h2 {
-        font-size: 24px;
-        font-weight: bold;
-        }
-
-        ul {
-        list-style: none;
-        padding-left: 0;
-        }
-
-        li {
-        margin-bottom: 10px;
-        }
-
-        a {
-        text-decoration: none;
-        color: blue;
-        }
-
-        /* CSS for the "No rooms found" message */
-        p {
-        margin-bottom: 10px;
-        }
-
-        /* CSS for the "Add Room" and "Remove Room" links */
-        a[href='add_room.php'],
-        a[href='remove_room.php'] {
-        display: inline-block;
-        margin-right: 10px;
-        text-decoration: none;
-        color: blue;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -65,47 +29,107 @@
             </div>
         </div>
     </nav>
-    <!-- index.php -->
-<div class="container py-4 py-xl-5">
-    <div class="row mb-5">
-        <div class="col-md-8 col-xl-6 text-center mx-auto">
-            <h2>ROOMS</h2>
-            <p>Welcome to the Rooms page of your Smart Home System! Here you can view and manage all the rooms in your home, including their connected devices, settings, and preferences.</p>
-        </div>
-    </div>
-    <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-    <div class="col text-center">
-<?php
-require_once 'db_connection.php';
+    <?php require_once 'db_connection.php'; ?>
 
-// Query the database to retrieve rooms
-$roomSql = "SELECT * FROM Room";
-$roomResult = $conn->query($roomSql);
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Rooms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
 
-// Check if any rooms exist
-if ($roomResult->num_rows > 0) {
-    echo "<h2>Manage Rooms</h2>";
-    echo "<ul>";
-    while ($row = $roomResult->fetch_assoc()) {
-        echo "<li>" . $row["room_name"] . "</li>";
-        echo "<ul>";
-        echo "<li><a href='add_device.php?room_id=" . $row["RoomID"] . "'>Add Device</a></li>";
-        echo "<li><a href='manage_devices.php?room_id=" . $row["RoomID"] . "'>Manage Devices</a></li>";
-        echo "</ul>";
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .room-card {
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .room-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333333;
+        }
+
+        .room-card a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #0366d6;
+        }
+
+        .room-card a:hover {
+            text-decoration: underline;
+        }
+
+        .add-remove-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .add-remove-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #0366d6;
+        }
+
+        .add-remove-links a:hover {
+            text-decoration: underline;
+        }
+
+        .paragraph {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <?php
+    // Query the database to retrieve rooms
+    $roomSql = "SELECT * FROM Room";
+    $roomResult = $conn->query($roomSql);
+
+    // Check if any rooms exist
+    if ($roomResult->num_rows > 0) {
+        echo "<div class='container'>";
+        while ($row = $roomResult->fetch_assoc()) {
+            echo "<div class='room-card'>";
+            echo "<h3>" . $row["room_name"] . "</h3>";
+            echo "<a href='manage_devices.php?room_id=" . $row["RoomID"] . "'>Manage Devices</a>";
+            echo "</div>";
+        }
+        echo "</div>";
+    } else {
+        echo "<p>No rooms found.</p>";
     }
-    echo "</ul>";
-    echo "<p><a href='add_room.php'>Add Room</a></p>";
-    echo "<p><a href='remove_room.php'>Remove Room</a></p>";
-} else {
-    echo "<p>No rooms found.</p>";
-    echo "<p><a href='add_room.php'>Add Room</a></p>";
-}
 
-// Close the result set
-$roomResult->close();
+    // Close the result set
+    $roomResult->close();
 
-$conn->close();
-?>
+    $conn->close();
+    ?>
+    <br>
+    <p class="paragraph">Manage your rooms and devices:</p>
+
+    <div class="add-remove-links">
+        <a href="add_room.php">Add Room</a>
+        <a href="remove_room.php">Remove Room</a>
+    </div>
+</body>
+</html>
 
 
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>

@@ -31,13 +31,10 @@
 <?php
 require_once 'db_connection.php';
 
-// Check if the room ID is provided in the query string
-if (isset($_GET['room_id'])) {
-    // Get the room ID from the query string
-    $roomId = $_GET['room_id'];
+
 
     // Query the database to retrieve devices for the specified room
-    $deviceSql = "SELECT * FROM Devices WHERE RoomID = '$roomId'";
+    $deviceSql = "SELECT * FROM Device";
     $deviceResult = $conn->query($deviceSql);
 
     // Check if any devices exist
@@ -55,9 +52,6 @@ if (isset($_GET['room_id'])) {
 
     // Close the result set
     $deviceResult->close();
-} else {
-    echo "<p>Invalid room ID.</p>";
-}
 
 // Close the database connection
 $conn->close();
